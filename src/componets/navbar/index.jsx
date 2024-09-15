@@ -15,7 +15,7 @@ function Navbar() {
         <FontAwesomeIcon icon={faSpotify} size="2xl" />
         {/* barra de busqueda */}
       </div>
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between gap-2 items-center ">
         <button
           className="rounded-full p-2  border border-gray-400"
           type="button"

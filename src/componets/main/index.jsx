@@ -2,7 +2,7 @@ import { useState } from "react";
 import card from "../../assets/Cards/descarga.jfif";
 
 function Main() {
-  const [isSelecta, seSelect] = useState("Todo");
+  const [isSelecta, seSelect] = useState("All");
 
   const handlerClick = (e) => {
     const newSelect = e.target.childNodes[0].nodeValue;

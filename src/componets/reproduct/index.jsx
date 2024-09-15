@@ -6,12 +6,18 @@ import {
   faShuffle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 function Reproduct() {
+  const [isReproduct, setReproduct] = useState(false);
+
+  const handlerClick = () => {
+    setReproduct((preventState) => !preventState);
+  };
   return (
-    <footer className="Reproduct flex flex-row justify-between w-full rounded-md bg-slate-500/40 p-2">
+    <footer className="Reproduct grid grid-cols-3 w-full rounded-md bg-slate-500/40 p-2">
       <div className="flex flex-row gap-3">
-        <figure className="w-10">
+        <figure className="w-14">
           <img
             className="w-full h-full"
             src={
@@ -21,26 +27,30 @@ function Reproduct() {
           />
         </figure>
         <header>
-          <h5>Brayan Palacios</h5>
-          <h6>Humber boys</h6>
+          <h5>Tu puta madre</h5>
+          <h6>album tu otra puta madre</h6>
         </header>
       </div>
-      <div>
+      <div className="flex flex-col justify-center items-center">
         <div>
-          <ul className="flex gap-4">
+          <ul className="flex justify-center items-center gap-4">
             <li>
-              <FontAwesomeIcon icon={faShuffle} size="md" />
+              <FontAwesomeIcon icon={faShuffle} size="sm" />
             </li>
-            <FontAwesomeIcon icon={faBackward} />
+            <FontAwesomeIcon icon={faBackward} size="sm" />
+            <li
+              className="text-center p-1 cursor-pointer border rounded-md"
+              onClick={() => handlerClick()}
+            >
+              {isReproduct ? (
+                <FontAwesomeIcon icon={faPause} height="40px" width="40px" />
+              ) : (
+                <FontAwesomeIcon icon={faPlay} height="40px" width="40px" />
+              )}
+            </li>
             <li>
-              <FontAwesomeIcon icon={faPause} />
-              <FontAwesomeIcon icon={faPlay} />
+              <FontAwesomeIcon icon={faForward} size="sm" />
             </li>
-            <li>
-              <FontAwesomeIcon icon={faForward} />
-            </li>
-            <li></li>
-            <li></li>
           </ul>
         </div>
         <div>----------------------------------------------</div>
