@@ -10,7 +10,7 @@ function Main() {
   };
 
   return (
-    <main className="Main p-2 rounded-md bg-slate-500/40 flex flex-col gap-3 overflow-hidden h-full overflow-y-scroll overscroll-x-contain snap-x snap-proximity">
+    <main className="w-full h-full p-4 rounded-md bg-slate-500/40 flex flex-col gap-3 ">
       <nav>
         <ul className="flex gap-4">
           <li>
@@ -58,32 +58,34 @@ function Main() {
           </li>
         </ul>
       </nav>
-      <div className="flex flex-col gap-2">
-        <div>
-          <h4>Hecho para ti</h4>
-          <div>Mostrar todo</div>
+      <div className="overflow-hidden overflow-y-scroll overscroll-x-contain snap-x snap-proximity">
+        <div className="flex flex-col gap-2">
+          <div>
+            <h4>Hecho para ti</h4>
+            <div>Mostrar todo</div>
+          </div>
+          <div className="flex gap-2 justify-around flex-wrap">
+            <RenderCard />
+            <RenderCard />
+            <RenderCard />
+            <RenderCard />
+            <RenderCard />
+            <RenderCard />
+          </div>
         </div>
-        <div className="flex gap-2 justify-between flex-wrap">
-          <RenderCard />
-          <RenderCard />
-          <RenderCard />
-          <RenderCard />
-          <RenderCard />
-          <RenderCard />
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div>
-          <h4>Hecho para ti</h4>
-          <div>Mostrar todo</div>
-        </div>
-        <div className="flex gap-2 justify-around flex-wrap">
-          <RenderCard />
-          <RenderCard />
-          <RenderCard />
-          <RenderCard />
-          <RenderCard />
-          <RenderCard />
+        <div className="flex flex-col gap-2">
+          <div>
+            <h4>Hecho para ti</h4>
+            <div>Mostrar todo</div>
+          </div>
+          <div className="flex gap-2 justify-around flex-wrap">
+            <RenderCard />
+            <RenderCard />
+            <RenderCard />
+            <RenderCard />
+            <RenderCard />
+            <RenderCard />
+          </div>
         </div>
       </div>
     </main>
