@@ -1,7 +1,5 @@
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import {
-  faBell,
-  faHome,
   faMagnifyingGlass,
   faUser,
   faX,
@@ -10,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Navbar() {
   return (
-    <nav className="container mx-auto flex justify-between items-center mx-2 pt-2">
+    <nav className="container mx-auto flex justify-between items-center pt-2">
       <div className="flex items-center">
         <FontAwesomeIcon icon={faSpotify} size="2xl" />
         {/* barra de busqueda */}
