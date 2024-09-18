@@ -3,10 +3,10 @@ import {
   faForward,
   faPause,
   faPlay,
-  faShuffle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import secondsToString from "./logic/secondsToString.js";
 
 import mp31 from "./Imagine Dragons  Nice to Meet You.mp3";
 import mp32 from "./Imagine Dragons  Believer.mp3";
@@ -30,7 +30,7 @@ const musicList = [
     artist: "Imagine Dragons",
     songTitle: "Radioactive",
     song: mp33,
-    img: "https://www.google.com/imgres?q=musica%20de%20imagine%20dragons%20radioactive&imgurl=https%3A%2F%2Fi.ytimg.com%2Fvi%2Fw3viBe2Q0P8%2Fmaxresdefault.jpg&imgrefurl=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dw3viBe2Q0P8&docid=4XxyQHcTatGP_M&tbnid=hamNKT_V5ZPTxM&vet=12ahUKEwjZtb_Y88eIAxXtmYQIHcdNFgsQM3oECBgQAA..i&w=1280&h=720&hcb=2&ved=2ahUKEwjZtb_Y88eIAxXtmYQIHcdNFgsQM3oECBgQAA",
+    img: "https://i.ytimg.com/vi/w3viBe2Q0P8/maxresdefault.jpg",
   },
   {
     artist: "Imagine Dragons",
@@ -41,13 +41,17 @@ const musicList = [
 ];
 
 // Para la barra de progreso
-function useProgress(audio) {
+function useProgress(audio, setMusic) {
   const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     if (audio) {
       const updateProgress = () => {
-        setProgress((audio.currentTime / audio.duration) * 100);
+        setCurrentTime(audio.currentTime);
+        setDuration(audio.duration);
+        setProgress((currentTime / duration) * 100);
       };
 
       audio.addEventListener("timeupdate", updateProgress);
@@ -56,12 +60,14 @@ function useProgress(audio) {
         audio.removeEventListener("timeupdate", updateProgress);
       };
     }
-  }, [audio]);
-  return progress;
+  }, [audio, setMusic, currentTime, duration]);
+  return [progress, currentTime, duration];
 }
 
 function useReproduct(isMusic) {
+  // Muestra un text hasta que se cargue el audio
   const [loading, setLoading] = useState(true);
+  // Estado para la reproduccion del audio
   const [audio, setAudio] = useState(null);
 
   useEffect(() => {
@@ -103,9 +109,18 @@ function Reproduct() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMusic, setMusic] = useState(musicList[0].song);
   const [listSelect, setListSelect] = useState(0);
+
   const [loading, audio] = useReproduct(isMusic);
-  const progress = useProgress(audio);
+  // Barra de prograso
+  const [progress, currentTime, duration] = useProgress(audio, setMusic);
+  // Para reproducir la musica
   usePlaying(audio, isPlaying);
+
+  useEffect(() => {
+    if (currentTime == duration) {
+      // handlerListNext();
+    }
+  }, [currentTime, duration]);
 
   const handlePlayPauseClick = () => {
     setIsPlaying((prev) => !prev);
@@ -131,43 +146,63 @@ function Reproduct() {
   }
 
   return (
-    <footer className="flex flex-col justify-evenly items-center h-full w-full rounded-md bg-slate-500/40 p-2">
-      <ul className="flex justify-center items-center gap-4">
-        <li
-          className="p-2 cursor-pointer"
-          onClick={() => {
-            handlerListBack();
-          }}
-        >
-          <FontAwesomeIcon icon={faBackward} size="sm" />
-        </li>
-        <li
-          className="text-center p-1 cursor-pointer border rounded-md"
-          onClick={handlePlayPauseClick}
-          role="button"
-          aria-label={isPlaying ? "Pause" : "Play"}
-        >
-          {isPlaying ? (
-            <FontAwesomeIcon icon={faPause} height="40px" width="40px" />
-          ) : (
-            <FontAwesomeIcon icon={faPlay} height="40px" width="40px" />
-          )}
-        </li>
-        <li
-          className="p-2 cursor-pointer"
-          onClick={() => {
-            handlerListNext();
-          }}
-        >
-          <FontAwesomeIcon icon={faForward} size="sm" />
-        </li>
-      </ul>
-      <div className="h-3 w-full border rounded-md bg-transparent">
-        <div
-          className="h-full bg-white items-center transition-all duration-100 ease-linear rounded-md"
-          style={{ width: `${progress}%` }}
-        ></div>
+    <footer className="flex flex-row justify-evenly gap-3 items-center h-full w-full rounded-md bg-slate-500/40 p-2">
+      <div className="flex flex-row w-64 gap-3 justify-center items-center">
+        <figure className="w-20 h-full">
+          <img
+            className="h-full w-full"
+            src={musicList[listSelect].img}
+            alt={musicList[listSelect].songTitle}
+          />
+        </figure>
+        <header>
+          <h4>{musicList[listSelect].songTitle}</h4>
+          <h3>{musicList[listSelect].artist}</h3>
+        </header>
       </div>
+      <nav className="w-full h-full flex flex-col justify-evenly">
+        <ul className="flex justify-center items-center gap-4">
+          <li
+            className="p-2 cursor-pointer"
+            onClick={() => {
+              handlerListBack();
+            }}
+          >
+            <FontAwesomeIcon icon={faBackward} size="sm" />
+          </li>
+          <li
+            className="text-center p-1 cursor-pointer border rounded-md"
+            onClick={handlePlayPauseClick}
+            role="button"
+            aria-label={isPlaying ? "Pause" : "Play"}
+          >
+            {isPlaying ? (
+              <FontAwesomeIcon icon={faPause} height="40px" width="40px" />
+            ) : (
+              <FontAwesomeIcon icon={faPlay} height="40px" width="40px" />
+            )}
+          </li>
+          <li
+            className="p-2 cursor-pointer"
+            onClick={() => {
+              handlerListNext();
+            }}
+          >
+            <FontAwesomeIcon icon={faForward} size="sm" />
+          </li>
+        </ul>
+        <div className="w-full flex flex-row justify-between">
+          <div className="font-bold">{secondsToString(currentTime)}</div>
+          <div className="font-bold">{secondsToString(duration)}</div>
+        </div>
+
+        <div className="h-3 w-full border rounded-md bg-transparent">
+          <div
+            className="h-full bg-white transition-all duration-100 ease-linear rounded-md"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+      </nav>
     </footer>
   );
 }
