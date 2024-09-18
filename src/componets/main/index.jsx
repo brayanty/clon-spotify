@@ -18,7 +18,7 @@ function Main() {
               className={`${
                 isSelecta == "All" ? "border-gray-400" : "border-transparent"
               }
-              border rounded-md p-1`}
+              border hover:border-gray-400 rounded-md p-1`}
               value="all"
               onClick={(e) => {
                 handlerClick(e);
@@ -32,7 +32,7 @@ function Main() {
               className={`${
                 isSelecta == "Music" ? "border-gray-400" : "border-transparent"
               }
-              border rounded-md p-1`}
+              border hover:border-gray-400 rounded-md p-1`}
               value="all"
               onClick={(e) => {
                 handlerClick(e);
@@ -45,10 +45,10 @@ function Main() {
             <button
               className={`${
                 isSelecta == "Podcasts"
-                  ? "border-gray-400"
+                  ? "border-gray-300"
                   : "border-transparent"
               }
-              border rounded-md p-1`}
+              border hover:border-gray-400 rounded-md p-1`}
               onClick={(e) => {
                 handlerClick(e);
               }}
