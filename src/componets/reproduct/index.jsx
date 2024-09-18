@@ -13,6 +13,7 @@ import mp32 from "./Imagine Dragons  Believer.mp3";
 import mp33 from "./Imagine Dragons  Radioactive.mp3";
 import mp34 from "./Imagine Dragons  Thunder.mp3";
 
+//Esta lista era de prueba lo ideal seria traerlo desde un servidor
 const musicList = [
   {
     artist: "Imagine Dragons",
@@ -118,7 +119,7 @@ function Reproduct() {
 
   useEffect(() => {
     if (currentTime == duration) {
-      // handlerListNext();
+      handlerListNext();
     }
   }, [currentTime, duration]);
 

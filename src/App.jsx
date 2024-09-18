@@ -9,7 +9,7 @@ function App() {
     <>
       <div className=" flex flex-col gap-2 h-[100vh] max-h-screen overflow-hidden">
         <Navbar />
-        <div className="w-full h-[70vh] flex flex-row gap-1">
+        <div className="w-full h-[73vh] flex flex-row gap-1">
           <Artists />
           <Main />
         </div>
