@@ -102,7 +102,7 @@ const RenderCard = () => {
           alt="Foto de una chica escuchando música"
         />
       </figure>
-      <h5>Miree,Ilonquee,Brayan</h5>
+      <h5>brayan,Brayan,brayan</h5>
     </div>
   );
 };
