@@ -7,13 +7,17 @@ import Reproduct from "./componets/reproduct/index.jsx";
 function App() {
   return (
     <>
-      <div className=" flex flex-col gap-2 h-[100vh] max-h-screen overflow-hidden">
-        <Navbar />
-        <div className="w-full h-[73vh] flex flex-row gap-1">
+      <div className=" grid grid-rows-9 grid-cols-3 gap-1 max-h-screen overflow-hidden">
+        <div className="col-span-3 row-span-1">
+          <Navbar />
+        </div>
+        <div className="w-full row-span-6 col-span-3 flex flex-row gap-1">
           <Artists />
           <Main />
         </div>
-        <Reproduct />
+        <div className="col-span-3 row-span-2 ">
+          <Reproduct />
+        </div>
       </div>
     </>
   );

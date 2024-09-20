@@ -168,7 +168,7 @@ function Reproduct() {
 
   return (
     <footer className="flex flex-row justify-evenly gap-3 items-center h-full w-full rounded-md bg-slate-500/40 p-2">
-      <div className="flex flex-row w-64 gap-3 justify-center items-center">
+      <div className="max-md:hidden flex flex-row w-64 gap-3 justify-center items-center">
         <figure className="w-20 h-full">
           <img
             className="h-full w-full"

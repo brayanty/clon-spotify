@@ -42,11 +42,11 @@ function Navbar() {
         <FontAwesomeIcon icon={faSpotify} size="2xl" />
         {/* Search bar */}
       </div>
-      <div className="flex flex-row justify-center gap-1 items-center px-3 py-3 w-full sm:w-[20rem] md:w-[30rem] bg-gray-700/70 rounded-3xl">
+      <div className="flex flex-row justify-center gap-1 items-center px-3 py-3 w-[20rem] md:w-[30rem] bg-gray-700/70 rounded-3xl">
         <div>
           <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
         </div>
-        <div className="w-full overflow-hidden max-h-[20px]">
+        <form className="w-full overflow-hidden max-h-[20px]">
           <label htmlFor="text"></label>
           <input
             className="w-full text-white bg-transparent active:bg-transparent visited:bg-transparent focus:bg-transparent checked:bg-transparent border-none outline-none"
@@ -55,7 +55,7 @@ function Navbar() {
             id="text"
             placeholder="¿Qué deseas buscar?"
           />
-        </div>
+        </form>
         <div>
           <FontAwesomeIcon icon={faX} size="lg" />
         </div>
