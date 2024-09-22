@@ -2,17 +2,12 @@ import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-
-Navbar.propTypes = {
-  searchHandler: PropTypes.func,
-};
 
 function useMenu() {
-  const [isSubMenuOpen, setSubMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const closeMenu = () => setSubMenuOpen(false);
+  const closeMenu = () => setIsMenuOpen(false);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -25,24 +20,27 @@ function useMenu() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  return [isSubMenuOpen, setSubMenuOpen, menuRef];
+  return { isMenuOpen, setIsMenuOpen, menuRef };
 }
 
-function Navbar({ searchHandler }) {
-  const [navHeight, setnavHeight] = useState(" ");
-  const [isSubMenuOpen, setSubMenuOpen, menuRef] = useMenu();
+// eslint-disable-next-line react/prop-types
+function Navbar({ changesURL }) {
+  const [navHeight, setNavHeight] = useState(" ");
+  const { isMenuOpen, setIsMenuOpen, menuRef } = useMenu();
   const navRef = useRef(null);
   const inputRef = useRef(null);
 
   const menuVisible = () => {
-    setnavHeight(navRef.current.clientHeight + "px");
-    setSubMenuOpen(true);
+    setNavHeight(navRef.current.clientHeight + "px");
+    setIsMenuOpen(true);
   };
 
   const handlerSearch = (e) => {
-    e.preventDefault();
-    const searchValue = inputRef.current.value;
-    searchHandler(searchValue);
+    e.preventDefault(); // Evita la recarga de la página
+    const searchValue = inputRef.current.value; // Accede al valor del input
+    const newUrl = searchValue; // Genera la nueva URL de búsqueda
+    window.history.pushState({}, "", `?q=${newUrl}`); // Actualiza la URL sin recargar la página
+    changesURL(newUrl); // Actualiza el estado para iniciar la búsqueda
   };
 
   return (
@@ -52,8 +50,8 @@ function Navbar({ searchHandler }) {
     >
       <div className="flex items-center">
         <FontAwesomeIcon icon={faSpotify} size="2xl" />
-        {/* Search bar */}
       </div>
+      {/* Search bar */}
       <form
         id="formSearch"
         className="flex flex-row justify-center gap-1 items-center px-3 py-3 w-[20rem] md:w-[30rem] bg-gray-700/70 rounded-3xl"
@@ -62,7 +60,7 @@ function Navbar({ searchHandler }) {
           <label htmlFor="text"></label>
           <input
             ref={inputRef}
-            className="w-full text-white bg-transparent active:bg-transparent visited:bg-transparent focus:bg-transparent checked:bg-transparent border-none outline-none"
+            className="w-full text-white bg-transparent border-none outline-none"
             type="text"
             name="text"
             id="text"
@@ -86,7 +84,7 @@ function Navbar({ searchHandler }) {
           <FontAwesomeIcon className="p-4" icon={faUser} size="lg" />
         </li>
       </ul>
-      {isSubMenuOpen && (
+      {isMenuOpen && (
         <div
           ref={menuRef}
           style={{
@@ -97,13 +95,13 @@ function Navbar({ searchHandler }) {
           className="font-semibold bg-slate-500/50 backdrop-blur-sm w-32 shadow-lg rounded-md p-2"
         >
           <ul className=" flex flex-col ">
-            <li className="hover:bg-gray-200 rounded-md hover:text-black  cursor-pointer p-2">
+            <li className="hover:bg-gray-200 rounded-md hover:text-black cursor-pointer p-2">
               Login
             </li>
-            <li className="hover:bg-gray-200 rounded-md hover:text-black  cursor-pointer p-2">
+            <li className="hover:bg-gray-200 rounded-md hover:text-black cursor-pointer p-2">
               Settings
             </li>
-            <li className="hover:bg-gray-200 rounded-md hover:text-black  cursor-pointer p-2">
+            <li className="hover:bg-gray-200 rounded-md hover:text-black cursor-pointer p-2">
               Premium
             </li>
           </ul>

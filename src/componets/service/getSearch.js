@@ -1,5 +1,5 @@
 export default async function getSearch(search) {
-  const url = `https://spotify23.p.rapidapi.com/search/?q=${search}&type=multi&offset=0&limit=10&numberOfTopResults=5`;
+  const url = `https://spotify23.p.rapidapi.com/search/?q=${search}&type=multi&offset=0&limit=5&numberOfTopResults=10`;
 
   const options = {
     method: "GET",

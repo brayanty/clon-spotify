@@ -16,7 +16,8 @@ function useUsers() {
   return isUsers;
 }
 
-export function Users() {
+// eslint-disable-next-line react/prop-types
+export function Users({ artists }) {
   const users = useUsers();
 
   if (users == -1) {
@@ -26,19 +27,14 @@ export function Users() {
       </div>
     );
   } else {
-    return users.map((user) => (
-      <li key={user.id} className="flex flex-row gap-2 items-center">
+    // eslint-disable-next-line react/prop-types
+    return artists.map((artist) => (
+      <li key={artist.id} className="flex flex-row gap-2 items-center">
         <figure className="md:w-10 w-[4rem] overflow-hidden rounded-full">
-          <img
-            className="w-full h-full"
-            src={user.imagen}
-            alt={`${user.first} ${user.last}`}
-          />
+          <img className="w-full h-full" src={artist.img} alt={artist.name} />
         </figure>
         <header className="max-md:hidden">
-          <h4 className="text-sm font-primaryMedium">
-            {user.first} {user.last}
-          </h4>
+          <h4 className="text-sm font-primaryMedium">{artist.name}</h4>
           <div>
             <p className="text-xs font-primaryRegular">Artista</p>
           </div>
