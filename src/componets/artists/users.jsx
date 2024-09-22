@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import getUsers from "./service/getUsers.js";
+import PropTypes from "prop-types";
 
 function useUsers() {
   const [isUsers, setUsers] = useState([]);
@@ -16,7 +17,10 @@ function useUsers() {
   return isUsers;
 }
 
-// eslint-disable-next-line react/prop-types
+Users.propTypes = {
+  artists: PropTypes.object.isRequired,
+};
+
 export function Users({ artists }) {
   const users = useUsers();
 
@@ -27,7 +31,6 @@ export function Users({ artists }) {
       </div>
     );
   } else {
-    // eslint-disable-next-line react/prop-types
     return artists.map((artist) => (
       <li key={artist.id} className="flex flex-row gap-2 items-center">
         <figure className="md:w-10 w-[4rem] overflow-hidden rounded-full">

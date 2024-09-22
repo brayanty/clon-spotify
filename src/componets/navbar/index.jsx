@@ -2,6 +2,7 @@ import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
 function useMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +24,10 @@ function useMenu() {
   return { isMenuOpen, setIsMenuOpen, menuRef };
 }
 
-// eslint-disable-next-line react/prop-types
+Navbar.propTypes = {
+  changesURL: PropTypes.func,
+};
+
 function Navbar({ changesURL }) {
   const [navHeight, setNavHeight] = useState(" ");
   const { isMenuOpen, setIsMenuOpen, menuRef } = useMenu();

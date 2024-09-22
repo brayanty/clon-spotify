@@ -20,13 +20,13 @@ const musicList = [
     artist: "Imagine Dragons",
     songTitle: "Nice to Meet You",
     song: mp31,
-    img: "",
+    img: "https://i.ytimg.com/vi/w3viBe2Q0P8/maxresdefault.jpg",
   },
   {
     artist: "Imagine Dragons",
     songTitle: "Beliver",
     song: mp32,
-    img: "",
+    img: "https://i.ytimg.com/vi/w3viBe2Q0P8/maxresdefault.jpg",
   },
   {
     artist: "Imagine Dragons",
@@ -38,7 +38,7 @@ const musicList = [
     artist: "Imagine Dragons",
     songTitle: "Thunder",
     song: mp34,
-    img: "",
+    img: "https://i.ytimg.com/vi/w3viBe2Q0P8/maxresdefault.jpg",
   },
 ];
 

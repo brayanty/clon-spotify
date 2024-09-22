@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { Albums } from "./resouce/cards.jsx";
+import { Albums } from "./resources/cards.jsx";
+import PropTypes from "prop-types";
 
-// eslint-disable-next-line react/prop-types
+Main.propTypes = {
+  results: PropTypes.object,
+};
+
 function Main({ results }) {
   const [isSelect, setSelect] = useState("All");
   const menuSelect = ["All", "Music", "Podcast"];
@@ -20,7 +24,7 @@ function Main({ results }) {
               <button
                 className={`${
                   isSelect === item
-                    ? "border-black text-black font-primaryMedium bg-slate-400/60"
+                    ? "border-black text-black font-primaryMedium bg-slate-200/60"
                     : "border-transparent"
                 } border hover:border-gray-400 rounded-md p-1`}
                 onClick={handleClick}
@@ -31,7 +35,7 @@ function Main({ results }) {
           ))}
         </ul>
       </nav>
-      <div className="flex flex-col gap-3 overflow-hidden overflow-y-scroll overscroll-x-contain snap-x snap-proximity">
+      <div className="flex flex-col gap-3 overflow-hidden">
         <div className="flex flex-col gap-2">
           <h4 className="font-primarybold">Albums</h4>
           <Albums items={results} />

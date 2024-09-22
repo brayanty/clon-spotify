@@ -13,6 +13,7 @@ function useGetUrlResult() {
   useEffect(() => {
     async function fetchData(currentUrl) {
       const searchResults = await getSearch(currentUrl);
+
       setResults(searchResults);
     }
 
@@ -40,7 +41,7 @@ function App() {
   };
   return (
     <>
-      <div className=" grid grid-rows-9 grid-cols-3 gap-1 max-h-screen overflow-hidden">
+      <div className="h-full grid grid-rows-9 grid-cols-3 gap-2 max-h-screen overflow-hidden">
         <div className="col-span-3 row-span-1">
           <Navbar changesURL={changesURL} />
         </div>
