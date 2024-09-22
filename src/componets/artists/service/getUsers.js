@@ -6,7 +6,6 @@ async function getUsers() {
         const response = await fetch(END_POINT_USER);
         const data = await response.json();
         
-        console.log (data)
         const users = data.results.map((user) => ({
             id: user.login.uuid,
             first: user.name.first, 

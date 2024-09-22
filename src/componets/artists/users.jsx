@@ -18,7 +18,6 @@ function useUsers() {
 
 export function Users() {
   const users = useUsers();
-  console.log(users);
 
   if (users == -1) {
     return (
