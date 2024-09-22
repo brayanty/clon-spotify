@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -17,3 +16,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: "Regular";
+  src: local("Poppins-Regular"), url("./fonts/Poppins/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: "Medium";
+  src: local("Poppins-Medium"), url("./fonts/Poppins/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "bold";
+  src: local("Poppins-Bold"), url("./fonts/Poppins/Poppins-Bold.ttf");
+}
+@font-face {
+  font-family: "PixelifySans-bold";
+  src: local("PixelifySans-Bold"), url("./fonts/Pixelify_Sans/PixelifySans-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Filano";
+  src: local("filano"), url("./fonts/Filano/filano.ttf");
+}
