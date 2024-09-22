@@ -1,25 +1,18 @@
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
-import {
-  faMagnifyingGlass,
-  faUser,
-  faX,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
-function Navbar() {
-  const [navHeight, setnavHeight] = useState(" ");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+Navbar.propTypes = {
+  searchHandler: PropTypes.func,
+};
+
+function useMenu() {
+  const [isSubMenuOpen, setSubMenuOpen] = useState(false);
   const menuRef = useRef(null);
-  const navRef = useRef(null);
 
-  const menuVisible = () => {
-    setnavHeight(navRef.current.clientHeight + "px");
-    setIsMenuOpen(true);
-  };
-
-  const closeMenu = () => setIsMenuOpen(false);
-
+  const closeMenu = () => setSubMenuOpen(false);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -32,6 +25,25 @@ function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  return [isSubMenuOpen, setSubMenuOpen, menuRef];
+}
+
+function Navbar({ searchHandler }) {
+  const [navHeight, setnavHeight] = useState(" ");
+  const [isSubMenuOpen, setSubMenuOpen, menuRef] = useMenu();
+  const navRef = useRef(null);
+  const inputRef = useRef(null);
+
+  const menuVisible = () => {
+    setnavHeight(navRef.current.clientHeight + "px");
+    setSubMenuOpen(true);
+  };
+
+  const handlerSearch = (e) => {
+    e.preventDefault();
+    const searchValue = inputRef.current.value;
+    searchHandler(searchValue);
+  };
 
   return (
     <nav
@@ -42,24 +54,30 @@ function Navbar() {
         <FontAwesomeIcon icon={faSpotify} size="2xl" />
         {/* Search bar */}
       </div>
-      <div className="flex flex-row justify-center gap-1 items-center px-3 py-3 w-[20rem] md:w-[30rem] bg-gray-700/70 rounded-3xl">
-        <div>
-          <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
-        </div>
-        <form className="w-full overflow-hidden max-h-[20px]">
+      <form
+        id="formSearch"
+        className="flex flex-row justify-center gap-1 items-center px-3 py-3 w-[20rem] md:w-[30rem] bg-gray-700/70 rounded-3xl"
+      >
+        <div className="w-full overflow-hidden max-h-[20px]">
           <label htmlFor="text"></label>
           <input
+            ref={inputRef}
             className="w-full text-white bg-transparent active:bg-transparent visited:bg-transparent focus:bg-transparent checked:bg-transparent border-none outline-none"
             type="text"
             name="text"
             id="text"
             placeholder="¿Qué deseas buscar?"
           />
-        </form>
-        <div>
-          <FontAwesomeIcon icon={faX} size="lg" />
         </div>
-      </div>
+        <button
+          onClick={(e) => {
+            handlerSearch(e);
+          }}
+          type="submit"
+        >
+          <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
+        </button>
+      </form>
       <ul className="flex gap-3 justify-evenly items-center">
         <li
           onClick={menuVisible}
@@ -68,7 +86,7 @@ function Navbar() {
           <FontAwesomeIcon className="p-4" icon={faUser} size="lg" />
         </li>
       </ul>
-      {isMenuOpen && (
+      {isSubMenuOpen && (
         <div
           ref={menuRef}
           style={{
